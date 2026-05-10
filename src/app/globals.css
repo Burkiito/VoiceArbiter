@@ -1,0 +1,199 @@
+/* VoiceArbiter — Global Stiller */
+/* Koyu lacivert/mor tema ile özel CSS değişkenleri */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Değişkenleri ──────────────────────────────────────────────────────── */
+:root {
+  /* Arka plan renkleri */
+  --renk-zemin: #0a0e1a;
+  --renk-zemin-acik: #0f1526;
+  --renk-zemin-panel: #131929;
+  --renk-zemin-kart: #1a2035;
+
+  /* Birincil vurgu — mor */
+  --renk-vurgu: #7c3aed;
+  --renk-vurgu-acik: #8b5cf6;
+
+  /* İkincil vurgu — camgöbeği */
+  --renk-ikincil: #0ea5e9;
+  --renk-ikincil-acik: #38bdf8;
+
+  /* Metin */
+  --renk-yazi-birincil: #f1f5f9;
+  --renk-yazi-ikincil: #94a3b8;
+  --renk-yazi-soluk: #475569;
+
+  /* Kenarlıklar */
+  --renk-sinir: #1e2d4a;
+  --renk-sinir-acik: #2d3f5e;
+}
+
+/* ─── Temel Stiller ─────────────────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--renk-zemin);
+  color: var(--renk-yazi-birincil);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  min-height: 100vh;
+  /* Koyu lacivert gradyan arka plan */
+  background-image:
+    radial-gradient(
+      ellipse at 20% 50%,
+      rgba(124, 58, 237, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse at 80% 50%,
+      rgba(14, 165, 233, 0.06) 0%,
+      transparent 50%
+    );
+}
+
+/* ─── Kaydırma Çubuğu Özelleştirmesi ──────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--renk-zemin-acik);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--renk-sinir-acik);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--renk-vurgu);
+}
+
+/* ─── Seçim Rengi ──────────────────────────────────────────────────────────── */
+::selection {
+  background-color: rgba(124, 58, 237, 0.3);
+  color: var(--renk-yazi-birincil);
+}
+
+/* ─── Wallet Adapter Stil Geçersiz Kılmaları ──────────────────────────────── */
+/* Phantom cüzdan bağlantı modalını tema ile uyumlu hale getir */
+.wallet-adapter-modal-wrapper {
+  background: var(--renk-zemin-panel) !important;
+  border: 1px solid var(--renk-sinir-acik) !important;
+  border-radius: 16px !important;
+}
+
+.wallet-adapter-modal-title {
+  color: var(--renk-yazi-birincil) !important;
+}
+
+.wallet-adapter-modal-list li {
+  background: var(--renk-zemin-kart) !important;
+  border: 1px solid var(--renk-sinir) !important;
+}
+
+.wallet-adapter-modal-list li:hover {
+  border-color: var(--renk-vurgu) !important;
+}
+
+.wallet-adapter-button-trigger {
+  background: linear-gradient(135deg, #7c3aed 0%, #0ea5e9 100%) !important;
+}
+
+/* ─── Animasyonlar ──────────────────────────────────────────────────────────── */
+@keyframes dalga {
+  0%, 100% { transform: scaleY(0.3); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes nabiz {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@keyframes kayma {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes parlama {
+  0%, 100% { box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
+  50% { box-shadow: 0 0 40px rgba(124, 58, 237, 0.6), 0 0 60px rgba(14, 165, 233, 0.2); }
+}
+
+/* Utility class'lar */
+.animasyon-dalga {
+  animation: dalga 1.5s ease-in-out infinite;
+}
+
+.animasyon-nabiz {
+  animation: nabiz 2s ease-in-out infinite;
+}
+
+/* ─── Tipografi ─────────────────────────────────────────────────────────────── */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--renk-yazi-birincil);
+}
+
+code, pre, kbd {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 0.875em;
+}
+
+/* ─── Odaklanma Stilleri (Erişilebilirlik) ──────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--renk-vurgu);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Giriş Alanı Stilleri ──────────────────────────────────────────────────── */
+input, select, textarea {
+  background-color: var(--renk-zemin-acik);
+  color: var(--renk-yazi-birincil);
+  border-color: var(--renk-sinir);
+}
+
+input::placeholder, textarea::placeholder {
+  color: var(--renk-yazi-soluk);
+}
+
+/* ─── Yükleme İskelet Animasyonu ─────────────────────────────────────────────── */
+@keyframes parlama-arka {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.iskelet {
+  background: linear-gradient(
+    90deg,
+    var(--renk-zemin-kart) 25%,
+    var(--renk-sinir) 50%,
+    var(--renk-zemin-kart) 75%
+  );
+  background-size: 200% 100%;
+  animation: parlama-arka 1.5s ease-in-out infinite;
+}
