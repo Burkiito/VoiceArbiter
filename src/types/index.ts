@@ -55,6 +55,8 @@ export interface GuvenPuaniDetay {
   koken: GuvenKategorisi;
   /** Hesaplama zaman damgası */
   hesaplanmaZamani: string;
+  /** Veri kaynağı (opsiyonel) */
+  veriKaynagi?: string;
 }
 
 // ─── Ham cüzdan verisi ───────────────────────────────────────────────────────
