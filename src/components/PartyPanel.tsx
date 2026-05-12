@@ -35,10 +35,10 @@ function GuvenBadge({ adres }: GuvenBadgeProps) {
       adres,
       toplamPuan: 85,
       hesaplanmaZamani: new Date().toISOString(),
-      yas: { kategoriAdi: 'Cüzdan Yaşı', puan: 24, maksimumPuan: 30, aciklama: '120 günlük cüzdan' },
-      aktivite: { kategoriAdi: 'İşlem Aktivitesi', puan: 22, maksimumPuan: 25, aciklama: '142 işlem tespit edildi' },
-      bakiye: { kategoriAdi: 'Bakiye', puan: 17, maksimumPuan: 20, aciklama: 'Yeterli SOL bakiyesi mevcut' },
-      koken: { kategoriAdi: 'Köken', puan: 22, maksimumPuan: 25, aciklama: 'Güvenilir kaynak cüzdanı' },
+      yas: { kategoriAdi: 'Cüzdan Yaşı', puan: 24, maksimumPuan: 30, aciklama: '120-day-old wallet' },
+      aktivite: { kategoriAdi: 'İşlem Aktivitesi', puan: 22, maksimumPuan: 25, aciklama: '142 transactions detected' },
+      bakiye: { kategoriAdi: 'Bakiye', puan: 17, maksimumPuan: 20, aciklama: 'Sufficient SOL balance available' },
+      koken: { kategoriAdi: 'Köken', puan: 22, maksimumPuan: 25, aciklama: 'Trusted source wallet' },
     });
     setYukleniyor(false);
   }, [adres]);
@@ -79,10 +79,10 @@ function GuvenBadge({ adres }: GuvenBadgeProps) {
   const cerceveDoluluk = ((100 - rapor.toplamPuan) / 100) * cerceveCevresi;
 
   const kategoriler = [
-    { etiket: 'Yaş', veri: rapor.yas },
-    { etiket: 'Aktivite', veri: rapor.aktivite },
-    { etiket: 'Bakiye', veri: rapor.bakiye },
-    { etiket: 'Köken', veri: rapor.koken },
+    { etiket: 'Age', veri: rapor.yas },
+    { etiket: 'Activity', veri: rapor.aktivite },
+    { etiket: 'Balance', veri: rapor.bakiye },
+    { etiket: 'Origin', veri: rapor.koken },
   ];
 
   return (
@@ -115,8 +115,8 @@ function GuvenBadge({ adres }: GuvenBadgeProps) {
           </div>
 
           <div>
-            <p className="text-xs font-medium text-yazi-birincil">Güven Skoru</p>
-            <p className="text-xs text-yazi-soluk">/100 puan</p>
+            <p className="text-xs font-medium text-yazi-birincil">Trust Score</p>
+            <p className="text-xs text-yazi-soluk">/100 points</p>
           </div>
         </div>
 
@@ -125,7 +125,7 @@ function GuvenBadge({ adres }: GuvenBadgeProps) {
           onClick={() => setGenisletildi((g) => !g)}
           className="text-xs text-yazi-soluk hover:text-yazi-ikincil transition-colors flex items-center gap-1"
         >
-          {genisletildi ? 'Gizle' : 'Detaylar'}
+          {genisletildi ? 'Hide' : 'Details'}
           <svg
             className={`w-3 h-3 transition-transform ${genisletildi ? 'rotate-180' : ''}`}
             fill="none"
@@ -261,7 +261,7 @@ function TarafAPaneli() {
             onClick={baglantiKes}
             className="w-full py-2 px-4 rounded-lg border border-sinir-acik text-yazi-ikincil hover:border-hata hover:text-hata text-sm transition-colors"
           >
-            Bağlantıyı Kes
+            Disconnect
           </button>
 
           <GuvenBadge adres={adres} />
