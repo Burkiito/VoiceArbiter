@@ -88,11 +88,10 @@ export async function createEscrowTransaction(
     await conn.getLatestBlockhash('confirmed');
 
   // İşlemi oluştur
-  const islem = new Transaction({
-    recentBlockhash: blockhash,
-    lastValidBlockHeight,
-    feePayer: musteriAcikAnahtari,
-  });
+  const islem = new Transaction();
+  islem.recentBlockhash = blockhash;
+  islem.lastValidBlockHeight = lastValidBlockHeight;
+  islem.feePayer = musteriAcikAnahtari;
 
   // Lamport miktarına çevir
   const miktarLamport = Math.floor(miktarSol * LAMPORTS_PER_SOL);
