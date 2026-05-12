@@ -118,7 +118,7 @@ function KategoriCubugu({ kategori }: { kategori: GuvenKategorisi }) {
  * Cüzdan güven puanı raporu paneli.
  * Dairesel gösterge, kategori çubukları ve Türkçe açıklamalar içerir.
  */
-export function GuvenRaporu({ adres, baslik = 'Güven Raporu' }: GuvenRaporuProps) {
+export function GuvenRaporu({ adres, baslik = 'Trust Report' }: GuvenRaporuProps) {
   const [rapor, setRapor] = useState<GuvenPuaniDetay | null>(null);
   const [yukleniyor, setYukleniyor] = useState(false);
   const [hata, setHata] = useState<string | null>(null);
@@ -132,10 +132,10 @@ export function GuvenRaporu({ adres, baslik = 'Güven Raporu' }: GuvenRaporuProp
       adres,
       toplamPuan: 85,
       hesaplanmaZamani: new Date().toISOString(),
-      yas: { kategoriAdi: 'Cüzdan Yaşı', puan: 24, maksimumPuan: 30, aciklama: '120 günlük cüzdan' },
-      aktivite: { kategoriAdi: 'İşlem Aktivitesi', puan: 22, maksimumPuan: 25, aciklama: '142 işlem tespit edildi' },
-      bakiye: { kategoriAdi: 'Bakiye', puan: 17, maksimumPuan: 20, aciklama: 'Yeterli SOL bakiyesi mevcut' },
-      koken: { kategoriAdi: 'Köken', puan: 22, maksimumPuan: 25, aciklama: 'Güvenilir kaynak cüzdanı' },
+      yas: { kategoriAdi: 'Wallet Age', puan: 24, maksimumPuan: 30, aciklama: '120-day-old wallet' },
+      aktivite: { kategoriAdi: 'Transaction Activity', puan: 22, maksimumPuan: 25, aciklama: '142 transactions detected' },
+      bakiye: { kategoriAdi: 'Balance', puan: 17, maksimumPuan: 20, aciklama: 'Sufficient SOL balance' },
+      koken: { kategoriAdi: 'Provenance', puan: 22, maksimumPuan: 25, aciklama: 'Trusted source wallet' },
     });
     setYukleniyor(false);
   }, [adres]);
@@ -165,7 +165,7 @@ export function GuvenRaporu({ adres, baslik = 'Güven Raporu' }: GuvenRaporuProp
             ))}
           </div>
           <p className="text-xs text-yazi-soluk animate-nabiz">
-            Güven puanı hesaplanıyor...
+            Calculating trust score...
           </p>
         </div>
       </div>
@@ -180,13 +180,13 @@ export function GuvenRaporu({ adres, baslik = 'Güven Raporu' }: GuvenRaporuProp
           {baslik}
         </h3>
         <div className="bg-hata/10 border border-hata/30 rounded-lg p-4 space-y-3">
-          <p className="text-sm text-hata font-medium">Rapor yüklenemedi</p>
+          <p className="text-sm text-hata font-medium">Failed to load report</p>
           <p className="text-xs text-yazi-ikincil">{hata}</p>
           <button
             onClick={raporuCek}
             className="text-xs text-vurgu-acik hover:text-vurgu transition-colors underline"
           >
-            Yeniden dene
+            Retry
           </button>
         </div>
       </div>
@@ -201,7 +201,7 @@ export function GuvenRaporu({ adres, baslik = 'Güven Raporu' }: GuvenRaporuProp
           {baslik}
         </h3>
         <p className="text-sm text-yazi-soluk text-center py-6">
-          Güven raporu için cüzdan bağlantısı gereklidir.
+          A wallet connection is required for the trust report.
         </p>
       </div>
     );
@@ -220,7 +220,7 @@ export function GuvenRaporu({ adres, baslik = 'Güven Raporu' }: GuvenRaporuProp
           {baslik}
         </h3>
         <span className="text-xs text-yazi-soluk font-mono">
-          {rapor.veriKaynagi ?? 'genel_rpc'}
+          {rapor.veriKaynagi ?? 'public_rpc'}
         </span>
       </div>
 
@@ -242,8 +242,8 @@ export function GuvenRaporu({ adres, baslik = 'Güven Raporu' }: GuvenRaporuProp
 
       {/* Hesaplama zamanı */}
       <p className="mt-4 text-xs text-yazi-soluk text-center">
-        Hesaplandı:{' '}
-        {new Date(rapor.hesaplanmaZamani).toLocaleString('tr-TR')}
+        Calculated at:{' '}
+        {new Date(rapor.hesaplanmaZamani).toLocaleString('en-US')}
       </p>
     </div>
   );

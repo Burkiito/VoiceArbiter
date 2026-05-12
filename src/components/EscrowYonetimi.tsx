@@ -13,12 +13,12 @@ import type { ImzalamaYaniti } from '@/types';
 // ─── Aşama göstergesi ──────────────────────────────────────────────────────────
 
 const SOZLESME_ASAMALARI = [
-  { kod: 'IDLE', etiket: 'Başlangıç' },
-  { kod: 'KAYIT', etiket: 'Kayıt' },
-  { kod: 'MUZAKERE', etiket: 'Müzakere' },
-  { kod: 'ONAY', etiket: 'Onay' },
+  { kod: 'IDLE', etiket: 'Start' },
+  { kod: 'KAYIT', etiket: 'Setup' },
+  { kod: 'MUZAKERE', etiket: 'Negotiate' },
+  { kod: 'ONAY', etiket: 'Confirm' },
   { kod: 'ESCROW_FUNDED', etiket: 'Escrow' },
-  { kod: 'TAMAMLANDI', etiket: 'Tamamlandı' },
+  { kod: 'TAMAMLANDI', etiket: 'Done' },
 ] as const;
 
 function AsamaGostergesi({ aktifAsama }: { aktifAsama: string }) {
@@ -92,12 +92,12 @@ export function EscrowYonetimi() {
   // Escrow'u fonla — müşteri imzalar, sunucu freelancer imzası ekler
   const escrowFonla = async () => {
     if (!publicKey || !signTransaction || !sozlesmeSartlari || !freelancerKimlik) {
-      bildirimEkle('hata', 'Eksik Bilgi', 'Escrow fonlamak için tüm bilgiler gereklidir.');
+      bildirimEkle('hata', 'Missing Information', 'All information is required to fund escrow.');
       return;
     }
 
     if (!sozlesmeSartlari.miktar || sozlesmeSartlari.miktar <= 0) {
-      bildirimEkle('hata', 'Geçersiz Tutar', 'Sözleşme tutarı belirtilmemiş veya geçersiz.');
+      bildirimEkle('hata', 'Invalid Amount', 'Contract amount is not specified or invalid.');
       return;
     }
 
@@ -131,13 +131,13 @@ export function EscrowYonetimi() {
 
       if (!yanit.ok) {
         const hataVerisi = await yanit.json().catch(() => ({}));
-        throw new Error(hataVerisi.hata ?? 'İmzalama sunucusuna ulaşılamadı');
+        throw new Error(hataVerisi.hata ?? 'Signing server could not be reached');
       }
 
       const sonuc: ImzalamaYaniti = await yanit.json();
 
       if (!sonuc.basarili) {
-        throw new Error(sonuc.hata ?? 'İmzalama başarısız');
+        throw new Error(sonuc.hata ?? 'Signing failed');
       }
 
       // Escrow bilgilerini güncelle
@@ -145,8 +145,8 @@ export function EscrowYonetimi() {
 
       bildirimEkle(
         'basari',
-        'Escrow Fonlandı!',
-        `${sozlesmeSartlari.miktar} SOL başarıyla escrow'a aktarıldı.`
+        'Escrow Funded!',
+        `${sozlesmeSartlari.miktar} SOL successfully transferred to escrow.`
       );
     } catch (hata) {
       const hataMesaji = hata instanceof Error ? hata.message : 'Bilinmeyen hata';
@@ -167,8 +167,8 @@ export function EscrowYonetimi() {
       asamaGec('TAMAMLANDI');
       bildirimEkle(
         'basari',
-        'Sözleşme Tamamlandı!',
-        'Escrow serbest bırakıldı ve sözleşme başarıyla tamamlandı.'
+        'Contract Completed!',
+        'Escrow released and contract successfully completed.'
       );
     } finally {
       setTamamlamaYukleniyor(false);
@@ -180,7 +180,7 @@ export function EscrowYonetimi() {
       {/* Başlık */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold text-yazi-ikincil uppercase tracking-wider">
-          Escrow Yönetimi
+          Escrow Management
         </h3>
         <span
           className={`text-xs px-2 py-0.5 rounded-full ${
@@ -202,11 +202,11 @@ export function EscrowYonetimi() {
       {sozlesmeSartlari ? (
         <div className="bg-zemin-acik rounded-lg border border-sinir p-3 mb-4 space-y-2">
           <h4 className="text-xs font-semibold text-yazi-ikincil uppercase tracking-wider mb-2">
-            Sözleşme Özeti
+            Contract Summary
           </h4>
 
           <div className="flex items-center justify-between">
-            <span className="text-xs text-yazi-soluk">Tutar</span>
+            <span className="text-xs text-yazi-soluk">Amount</span>
             <span className="text-sm font-semibold text-yazi-birincil">
               {sozlesmeSartlari.miktar !== null
                 ? `${sozlesmeSartlari.miktar} SOL`
@@ -216,16 +216,16 @@ export function EscrowYonetimi() {
 
           {sozlesmeSartlari.sonTarih && (
             <div className="flex items-center justify-between">
-              <span className="text-xs text-yazi-soluk">Son Tarih</span>
+              <span className="text-xs text-yazi-soluk">Deadline</span>
               <span className="text-sm text-yazi-birincil">
-                {new Date(sozlesmeSartlari.sonTarih).toLocaleDateString('tr-TR')}
+                {new Date(sozlesmeSartlari.sonTarih).toLocaleDateString('en-US')}
               </span>
             </div>
           )}
 
           {sozlesmeSartlari.kapsam && (
             <div className="pt-1 border-t border-sinir">
-              <span className="text-xs text-yazi-soluk block mb-1">Kapsam</span>
+              <span className="text-xs text-yazi-soluk block mb-1">Scope</span>
               <p className="text-sm text-yazi-birincil leading-relaxed">
                 {sozlesmeSartlari.kapsam}
               </p>
@@ -234,7 +234,7 @@ export function EscrowYonetimi() {
 
           {sozlesmeSartlari.odemeKosullari && (
             <div className="pt-1 border-t border-sinir">
-              <span className="text-xs text-yazi-soluk block mb-1">Ödeme Koşulları</span>
+              <span className="text-xs text-yazi-soluk block mb-1">Payment Terms</span>
               <p className="text-sm text-yazi-birincil">{sozlesmeSartlari.odemeKosullari}</p>
             </div>
           )}
@@ -242,9 +242,9 @@ export function EscrowYonetimi() {
       ) : (
         <div className="bg-zemin-acik rounded-lg border border-sinir-acik p-4 mb-4 text-center">
           <p className="text-sm text-yazi-soluk">
-            Sözleşme şartları henüz belirlenmedi.
+            Contract terms have not been set yet.
             <br />
-            Müzakere tamamlandığında burada görünecek.
+            They will appear here when negotiation is complete.
           </p>
         </div>
       )}
@@ -252,7 +252,7 @@ export function EscrowYonetimi() {
       {/* Escrow imzası göstergesi */}
       {escrowImzasi && (
         <div className="bg-basari/5 border border-basari/20 rounded-lg p-3 mb-4">
-          <p className="text-xs text-basari font-medium mb-1">İşlem Onaylandı</p>
+          <p className="text-xs text-basari font-medium mb-1">Transaction Confirmed</p>
           <div className="flex items-center justify-between gap-2">
             <span className="text-xs font-mono text-yazi-ikincil truncate">
               {adresKisalt(escrowImzasi, 8, 8)}
@@ -263,7 +263,7 @@ export function EscrowYonetimi() {
               rel="noopener noreferrer"
               className="text-xs text-ikincil hover:text-ikincil-acik transition-colors flex-shrink-0"
             >
-              Explorer'da Görüntüle
+              View on Explorer
             </a>
           </div>
         </div>
@@ -286,10 +286,10 @@ export function EscrowYonetimi() {
             {fonlamaYukleniyor ? (
               <span className="flex items-center justify-center gap-2">
                 <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                Escrow Fonlanıyor...
+                Funding Escrow...
               </span>
             ) : (
-              `Escrow'u Fonla — ${sozlesmeSartlari?.miktar ?? 0} SOL`
+              `Fund Escrow — ${sozlesmeSartlari?.miktar ?? 0} SOL`
             )}
           </button>
         )}
@@ -304,10 +304,10 @@ export function EscrowYonetimi() {
             {tamamlamaYukleniyor ? (
               <span className="flex items-center justify-center gap-2">
                 <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                İşleniyor...
+                Processing...
               </span>
             ) : (
-              'Escrow\'u Serbest Bırak (Freelancer)'
+              'Release Escrow (Freelancer)'
             )}
           </button>
         )}
@@ -315,7 +315,7 @@ export function EscrowYonetimi() {
         {/* Tamamlandı durumu */}
         {aktifAsama === 'TAMAMLANDI' && (
           <div className="w-full py-3 px-4 rounded-lg bg-basari/10 border border-basari/30 text-center">
-            <p className="text-basari font-semibold">Sözleşme Tamamlandı!</p>
+            <p className="text-basari font-semibold">Contract Completed!</p>
           </div>
         )}
       </div>

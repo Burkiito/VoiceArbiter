@@ -197,13 +197,13 @@ function TarafAPaneli() {
     setHata(null);
     try {
       const solana = (window as unknown as { solana?: { isPhantom?: boolean; connect: () => Promise<{ publicKey: { toString: () => string } }>; } }).solana;
-      if (!solana?.isPhantom) throw new Error('Phantom bulunamadı. Lütfen Phantom uzantısını yükleyin.');
+      if (!solana?.isPhantom) throw new Error('Phantom not found. Please install the Phantom extension.');
       const yanit = await solana.connect();
       const yeniAdres = yanit.publicKey.toString();
       setAdres(yeniAdres);
       tarafAyiKaydet(yeniAdres);
     } catch (err) {
-      setHata(err instanceof Error ? err.message : 'Bağlantı hatası');
+      setHata(err instanceof Error ? err.message : 'Connection error');
     } finally {
       setBaglaniyor(false);
     }
@@ -229,12 +229,12 @@ function TarafAPaneli() {
             }`}
           />
           <h3 className="text-sm font-semibold text-yazi-ikincil uppercase tracking-wider">
-            Müşteri — Taraf A
+            Client — Party A
           </h3>
         </div>
         {tarafA.kayitliMi && (
           <span className="text-xs px-2 py-0.5 rounded-full bg-basari/20 text-basari border border-basari/30">
-            Bağlı
+            Connected
           </span>
         )}
       </div>
@@ -242,7 +242,7 @@ function TarafAPaneli() {
       {bagli && adres ? (
         <div className="space-y-3 flex-1">
           <div className="bg-zemin-acik rounded-lg p-3 border border-sinir">
-            <p className="text-xs text-yazi-soluk mb-1">Phantom Cüzdan Adresi</p>
+            <p className="text-xs text-yazi-soluk mb-1">Phantom Wallet Address</p>
             <div className="flex items-center justify-between gap-2">
               <p className="text-sm font-mono text-yazi-birincil truncate">
                 {adresKisalt(adres, 8, 8)}
@@ -250,9 +250,9 @@ function TarafAPaneli() {
               <button
                 onClick={() => navigator.clipboard.writeText(adres)}
                 className="flex-shrink-0 text-xs text-vurgu-acik hover:text-vurgu transition-colors"
-                title="Tam adresi kopyala"
+                title="Copy full address"
               >
-                Kopyala
+                Copy
               </button>
             </div>
           </div>
@@ -269,7 +269,7 @@ function TarafAPaneli() {
       ) : (
         <div className="space-y-3 flex-1 flex flex-col">
           <p className="text-sm text-yazi-ikincil">
-            Müzakereye başlamak için Phantom cüzdanınızı bağlayın.
+            Connect your Phantom wallet to start negotiating.
           </p>
           {hata && (
             <p className="text-xs text-hata bg-hata/10 border border-hata/30 rounded-lg px-3 py-2">
@@ -281,10 +281,10 @@ function TarafAPaneli() {
             disabled={baglaniyor}
             className="w-full py-3 px-4 rounded-lg bg-gradient-to-r from-vurgu to-vurgu-acik text-white font-semibold text-sm shadow-vurgu hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {baglaniyor ? 'Bağlanıyor...' : 'Phantom ile Bağlan'}
+            {baglaniyor ? 'Connecting...' : 'Connect Phantom'}
           </button>
           <p className="text-xs text-yazi-soluk text-center mt-auto">
-            Yalnızca Devnet — gerçek para kullanılmaz
+            Devnet only — no real funds used
           </p>
         </div>
       )}
@@ -333,12 +333,11 @@ function TarafBPaneli() {
             }`}
           />
           <h3 className="text-sm font-semibold text-yazi-ikincil uppercase tracking-wider">
-            Freelancer — Taraf B
+            Freelancer — Party B
           </h3>
         </div>
-        {/* Tarayıcı cüzdanı yok — özel badge */}
         <span className="text-xs px-2 py-0.5 rounded-full bg-ikincil/20 text-ikincil border border-ikincil/30">
-          Sistem Cüzdanı
+          System Wallet
         </span>
       </div>
 
@@ -378,7 +377,7 @@ function TarafBPaneli() {
         <div className="space-y-3 flex-1">
           {/* Genel anahtar */}
           <div className="bg-zemin-acik rounded-lg p-3 border border-sinir">
-            <p className="text-xs text-yazi-soluk mb-1">Genel Anahtar (Backend Keypair)</p>
+            <p className="text-xs text-yazi-soluk mb-1">Public Key (Backend Keypair)</p>
             <div className="flex items-center justify-between gap-2">
               <p className="text-sm font-mono text-yazi-birincil truncate">
                 {adresKisalt(tarafB.acikAnahtarAdresi, 8, 8)}
@@ -386,24 +385,24 @@ function TarafBPaneli() {
               <button
                 onClick={() => navigator.clipboard.writeText(tarafB.acikAnahtarAdresi!)}
                 className="flex-shrink-0 text-xs text-ikincil hover:text-ikincil-acik transition-colors"
-                title="Tam adresi kopyala"
+                title="Copy full address"
               >
-                Kopyala
+                Copy
               </button>
             </div>
           </div>
 
           {/* Ağ bilgisi */}
           <div className="bg-zemin-acik rounded-lg p-3 border border-sinir">
-            <p className="text-xs text-yazi-soluk mb-1">Ağ</p>
+            <p className="text-xs text-yazi-soluk mb-1">Network</p>
             <p className="text-sm text-yazi-birincil capitalize">{ag}</p>
           </div>
 
           {/* Hibrit imzalama açıklaması */}
           <div className="bg-ikincil/5 border border-ikincil/20 rounded-lg p-3">
-            <p className="text-xs text-ikincil font-medium mb-1">Arka Uç İmzalama (Aktif)</p>
+            <p className="text-xs text-ikincil font-medium mb-1">Backend Signing (Active)</p>
             <p className="text-xs text-yazi-ikincil leading-relaxed">
-              İmza sunucu tarafında eklenir. Özel anahtar tarayıcıya asla gönderilmez.
+              Signature is added server-side. The private key is never sent to the browser.
             </p>
           </div>
 
@@ -416,13 +415,13 @@ function TarafBPaneli() {
       {!yukleniyor && !hata && !tarafB.dogrulandiMi && (
         <div className="space-y-3 flex-1 flex flex-col">
           <p className="text-sm text-yazi-ikincil">
-            Arka uç sistem cüzdanını etkinleştirmek için bağlanın.
+            Connect to activate the backend system wallet.
           </p>
           <button
             onClick={freelancerOlarakBaglanan}
             className="w-full py-3 px-4 rounded-lg bg-ikincil/20 border border-ikincil/40 text-ikincil font-semibold hover:bg-ikincil/30 transition-colors text-sm mt-auto"
           >
-            Freelancer Olarak Bağlan
+            Connect as Freelancer
           </button>
         </div>
       )}
@@ -445,11 +444,11 @@ export function PartyPanel() {
 
   // Faz etiketi Türkçe karşılıkları
   const fazEtiketleri: Record<string, string> = {
-    IDLE: 'Bekleniyor',
-    NEGOTIATING: 'Müzakere',
-    CONFIRMING: 'Onay Bekleniyor',
-    ESCROW_FUNDED: 'Escrow Aktif',
-    COMPLETED: 'Tamamlandı',
+    IDLE: 'Idle',
+    NEGOTIATING: 'Negotiating',
+    CONFIRMING: 'Confirming',
+    ESCROW_FUNDED: 'Escrow Active',
+    COMPLETED: 'Completed',
   };
 
   // Faz badge rengi
@@ -467,13 +466,12 @@ export function PartyPanel() {
     <div className="space-y-4">
       {/* Üst durum çubuğu */}
       <div className="flex items-center justify-between px-1">
-        <h2 className="text-base font-semibold text-yazi-birincil">Taraflar</h2>
+        <h2 className="text-base font-semibold text-yazi-birincil">Parties</h2>
         <div className="flex items-center gap-3">
-          {/* Her iki taraf bağlıysa yeşil "hazır" göstergesi */}
           {ikisiDeBagli && (
             <span className="flex items-center gap-1.5 text-xs text-basari">
               <span className="w-1.5 h-1.5 rounded-full bg-basari animate-nabiz" />
-              Müzakereye Hazır
+              Ready to Negotiate
             </span>
           )}
           {/* Aktif faz badge */}
@@ -495,9 +493,9 @@ export function PartyPanel() {
       {ikisiDeBagli && aktifAsama === 'NEGOTIATING' && (
         <div className="bg-ikincil/5 border border-ikincil/20 rounded-xl p-4 text-center animate-kayma">
           <p className="text-sm text-yazi-ikincil">
-            Her iki taraf da hazır.{' '}
+            Both parties are ready.{' '}
             <span className="text-ikincil font-medium">
-              Sesli müzakereyi başlatabilirsiniz.
+              You can start voice negotiation.
             </span>
           </p>
         </div>

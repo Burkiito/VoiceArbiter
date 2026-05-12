@@ -107,11 +107,11 @@ export function SesKayit({ taraf, onKayitTamamlandi, devreDisi = false }: SesKay
       }, 1000);
     } catch (hata) {
       console.error('[SesKayit] Mikrofon erişimi reddedildi:', hata);
-      setHata('Mikrofon erişimi reddedildi. Lütfen tarayıcı izinlerini kontrol edin.');
+      setHata('Microphone access denied. Please check your browser permissions.');
       bildirimEkle(
         'hata',
-        'Mikrofon Hatası',
-        'Ses kaydı için mikrofon izni gereklidir.'
+        'Microphone Error',
+        'Microphone access is required for voice recording.'
       );
     }
   }, [devreDisi, kayitAktif, bildirimEkle]);
@@ -141,7 +141,7 @@ export function SesKayit({ taraf, onKayitTamamlandi, devreDisi = false }: SesKay
       });
 
       if (sesBlobu.size < 1000) {
-        setHata('Ses çok kısa veya boş. Lütfen en az 1 saniye konuşun.');
+        setHata('Recording too short or empty. Please speak for at least 1 second.');
         return;
       }
 
@@ -161,7 +161,7 @@ export function SesKayit({ taraf, onKayitTamamlandi, devreDisi = false }: SesKay
 
         if (!yanit.ok) {
           const hataVerisi = await yanit.json().catch(() => ({}));
-          throw new Error(hataVerisi.hata ?? 'Transkripsiyon başarısız');
+          throw new Error(hataVerisi.hata ?? 'Transcription failed');
         }
 
         const { metin, dil } = await yanit.json();
@@ -182,14 +182,14 @@ export function SesKayit({ taraf, onKayitTamamlandi, devreDisi = false }: SesKay
 
         bildirimEkle(
           'basari',
-          'Ses Kaydedildi',
-          `Transkripsiyon tamamlandı: "${metin.substring(0, 50)}${metin.length > 50 ? '...' : ''}"`
+          'Voice Recorded',
+          `Transcription complete: "${metin.substring(0, 50)}${metin.length > 50 ? '...' : ''}"`
         );
       } catch (hata) {
         const hataMesaji =
-          hata instanceof Error ? hata.message : 'Bilinmeyen hata';
-        setHata(`Transkripsiyon hatası: ${hataMesaji}`);
-        bildirimEkle('hata', 'Transkripsiyon Hatası', hataMesaji);
+          hata instanceof Error ? hata.message : 'Unknown error';
+        setHata(`Transcription error: ${hataMesaji}`);
+        bildirimEkle('hata', 'Transcription Error', hataMesaji);
       } finally {
         setTranskripsiyon(false);
         yukleniyorAyarla('transkripsiyon', false);
@@ -208,14 +208,14 @@ export function SesKayit({ taraf, onKayitTamamlandi, devreDisi = false }: SesKay
 
   // Taraf rengi
   const tarafRengi = taraf === 'MUSTERI' ? 'vurgu' : 'ikincil';
-  const tarafAdi = taraf === 'MUSTERI' ? 'Müşteri' : 'Freelancer';
+  const tarafAdi = taraf === 'MUSTERI' ? 'Client' : 'Freelancer';
 
   return (
     <div className="bg-zemin-kart border border-sinir rounded-xl p-4 shadow-panel">
       {/* Başlık */}
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold text-yazi-ikincil uppercase tracking-wider">
-          {tarafAdi} — Ses Kaydı
+          {tarafAdi} — Voice Recording
         </h3>
         {/* Dil seçimi */}
         <select
@@ -224,9 +224,9 @@ export function SesKayit({ taraf, onKayitTamamlandi, devreDisi = false }: SesKay
           disabled={kayitAktif || transkripsiyon}
           className="text-xs bg-zemin-acik border border-sinir rounded px-2 py-1 text-yazi-ikincil focus:outline-none focus:border-sinir-vurgu disabled:opacity-50"
         >
-          <option value="tr">Türkçe</option>
-          <option value="en">İngilizce</option>
-          <option value="auto">Otomatik</option>
+          <option value="tr">Turkish</option>
+          <option value="en">English</option>
+          <option value="auto">Auto</option>
         </select>
       </div>
 
@@ -267,10 +267,10 @@ export function SesKayit({ taraf, onKayitTamamlandi, devreDisi = false }: SesKay
         {/* Durum metni */}
         <p className="text-xs text-yazi-ikincil text-center">
           {kayitAktif
-            ? 'Kaydediliyor... Bırakmak için parmağınızı kaldırın'
+            ? 'Recording... Release to stop'
             : transkripsiyon
-            ? 'Transkripsiyon yapılıyor...'
-            : 'Kayıt için basılı tutun'}
+            ? 'Transcribing...'
+            : 'Hold to record'}
         </p>
       </div>
 
@@ -284,7 +284,7 @@ export function SesKayit({ taraf, onKayitTamamlandi, devreDisi = false }: SesKay
       {/* Son transkript */}
       {sonTranskript && !kayitAktif && !transkripsiyon && (
         <div className="mt-3 bg-basari/5 border border-basari/20 rounded-lg p-3 animate-kayma">
-          <p className="text-xs text-yazi-soluk mb-1">Son Transkript:</p>
+          <p className="text-xs text-yazi-soluk mb-1">Last Transcript:</p>
           <p className="text-sm text-yazi-birincil leading-relaxed">"{sonTranskript}"</p>
         </div>
       )}

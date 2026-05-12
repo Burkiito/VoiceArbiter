@@ -34,8 +34,8 @@ export function WalletBaglantisi() {
       musteriCuzdaniniAyarla(publicKey.toBase58());
       bildirimEkle(
         'basari',
-        'Cüzdan Bağlandı',
-        `${adresKisalt(publicKey.toBase58())} adresi başarıyla bağlandı.`
+        'Wallet Connected',
+        `${adresKisalt(publicKey.toBase58())} address successfully connected.`
       );
       // Bakiyeyi yükle
       bakiyeYukle(publicKey.toBase58());
@@ -63,7 +63,7 @@ export function WalletBaglantisi() {
   const baglantiyiKes = async () => {
     try {
       await disconnect();
-      bildirimEkle('bilgi', 'Cüzdan Bağlantısı Kesildi', 'Phantom cüzdanı bağlantısı kesildi.');
+      bildirimEkle('bilgi', 'Wallet Disconnected', 'Phantom wallet disconnected.');
     } catch (hata) {
       console.error('[WalletBaglantisi] Bağlantı kesilirken hata:', hata);
     }
@@ -86,7 +86,7 @@ export function WalletBaglantisi() {
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-vurgu animate-nabiz" />
           <h3 className="text-sm font-semibold text-yazi-ikincil uppercase tracking-wider">
-            Müşteri — Taraf A
+            Client — Party A
           </h3>
         </div>
         <span className={`text-xs px-2 py-0.5 rounded-full text-white ${asamaRengi}`}>
@@ -99,7 +99,7 @@ export function WalletBaglantisi() {
         <div className="space-y-3">
           {/* Adres */}
           <div className="bg-zemin-acik rounded-lg p-3 border border-sinir">
-            <p className="text-xs text-yazi-soluk mb-1">Cüzdan Adresi</p>
+            <p className="text-xs text-yazi-soluk mb-1">Wallet Address</p>
             <div className="flex items-center justify-between gap-2">
               <p className="text-sm font-mono text-yazi-birincil truncate">
                 {adresKisalt(publicKey.toBase58(), 8, 8)}
@@ -107,19 +107,19 @@ export function WalletBaglantisi() {
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(publicKey.toBase58());
-                  bildirimEkle('bilgi', 'Kopyalandı', 'Adres panoya kopyalandı.');
+                  bildirimEkle('bilgi', 'Copied', 'Address copied to clipboard.');
                 }}
                 className="flex-shrink-0 text-xs text-vurgu-acik hover:text-vurgu transition-colors"
-                title="Tam adresi kopyala"
+                title="Copy full address"
               >
-                Kopyala
+                Copy
               </button>
             </div>
           </div>
 
           {/* Bakiye */}
           <div className="bg-zemin-acik rounded-lg p-3 border border-sinir">
-            <p className="text-xs text-yazi-soluk mb-1">SOL Bakiyesi</p>
+            <p className="text-xs text-yazi-soluk mb-1">SOL Balance</p>
             {bakiyeYukleniyor ? (
               <div className="h-5 bg-sinir rounded animate-pulse" />
             ) : (
@@ -134,14 +134,14 @@ export function WalletBaglantisi() {
             onClick={baglantiyiKes}
             className="w-full py-2 px-4 rounded-lg border border-sinir-acik text-yazi-ikincil hover:border-hata hover:text-hata transition-colors text-sm"
           >
-            Bağlantıyı Kes
+            Disconnect
           </button>
         </div>
       ) : (
         /* Bağlı değil durumu */
         <div className="space-y-3">
           <p className="text-sm text-yazi-ikincil">
-            Müzakereye başlamak için Phantom cüzdanınızı bağlayın.
+            Connect your Phantom wallet to start negotiating.
           </p>
           <button
             onClick={() => setVisible(true)}
@@ -151,14 +151,14 @@ export function WalletBaglantisi() {
             {connecting ? (
               <span className="flex items-center justify-center gap-2">
                 <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                Bağlanıyor...
+                Connecting...
               </span>
             ) : (
-              'Phantom Cüzdanı Bağla'
+              'Connect Phantom'
             )}
           </button>
           <p className="text-xs text-yazi-soluk text-center">
-            Yalnızca Devnet — gerçek para kullanılmaz
+            Devnet only — no real funds used
           </p>
         </div>
       )}

@@ -38,7 +38,7 @@ export function FreelancerKimlik() {
 
       if (!yanit.ok) {
         const hataMetni = await yanit.text();
-        throw new Error(hataMetni || 'Freelancer bilgisi alınamadı');
+        throw new Error(hataMetni || 'Failed to load freelancer info');
       }
 
       const veri: FreelancerBilgisiYaniti = await yanit.json();
@@ -53,8 +53,8 @@ export function FreelancerKimlik() {
       console.error('[FreelancerKimlik] Bilgi alınamadı:', hata);
       bildirimEkle(
         'uyari',
-        'Freelancer Bilgisi Yüklenemedi',
-        'freelancer-keypair.json dosyasının mevcut olduğundan emin olun.'
+        'Freelancer Info Failed to Load',
+        'Make sure the freelancer-keypair.json file exists.'
       );
     } finally {
       setYukleniyor(false);
@@ -68,12 +68,11 @@ export function FreelancerKimlik() {
         <div className="flex items-center gap-2">
           <div className="w-2 h-2 rounded-full bg-ikincil" />
           <h3 className="text-sm font-semibold text-yazi-ikincil uppercase tracking-wider">
-            Freelancer — Taraf B
+            Freelancer — Party B
           </h3>
         </div>
-        {/* Otomatik imzalayıcı badge */}
         <span className="text-xs px-2 py-0.5 rounded-full bg-ikincil/20 text-ikincil border border-ikincil/30">
-          Otomatik İmzalayıcı
+          Auto-Signer
         </span>
       </div>
 
@@ -87,11 +86,11 @@ export function FreelancerKimlik() {
         /* Hata durumu */
         <div className="space-y-3">
           <div className="bg-hata/10 border border-hata/30 rounded-lg p-3">
-            <p className="text-xs text-hata font-medium mb-1">Keypair Yüklenemedi</p>
+            <p className="text-xs text-hata font-medium mb-1">Keypair Failed to Load</p>
             <p className="text-xs text-yazi-ikincil">{hata}</p>
           </div>
           <p className="text-xs text-yazi-soluk">
-            Lütfen şu komutu çalıştırın:{' '}
+            Please run:{' '}
             <code className="bg-zemin-acik px-1.5 py-0.5 rounded font-mono text-vurgu-acik">
               npm run generate-wallets
             </code>
@@ -100,7 +99,7 @@ export function FreelancerKimlik() {
             onClick={freelancerBilgisiniCek}
             className="w-full py-2 px-4 rounded-lg border border-sinir-acik text-yazi-ikincil hover:border-ikincil hover:text-ikincil transition-colors text-sm"
           >
-            Yeniden Dene
+            Retry
           </button>
         </div>
       ) : freelancerKimlik ? (
@@ -108,7 +107,7 @@ export function FreelancerKimlik() {
         <div className="space-y-3">
           {/* Genel anahtar */}
           <div className="bg-zemin-acik rounded-lg p-3 border border-sinir">
-            <p className="text-xs text-yazi-soluk mb-1">Genel Anahtar (Solana)</p>
+            <p className="text-xs text-yazi-soluk mb-1">Public Key (Solana)</p>
             <div className="flex items-center justify-between gap-2">
               <p className="text-sm font-mono text-yazi-birincil truncate">
                 {adresKisalt(freelancerKimlik, 8, 8)}
@@ -116,28 +115,28 @@ export function FreelancerKimlik() {
               <button
                 onClick={() => {
                   navigator.clipboard.writeText(freelancerKimlik);
-                  bildirimEkle('bilgi', 'Kopyalandı', 'Freelancer adresi panoya kopyalandı.');
+                  bildirimEkle('bilgi', 'Copied', 'Freelancer address copied to clipboard.');
                 }}
                 className="flex-shrink-0 text-xs text-ikincil hover:text-ikincil-acik transition-colors"
-                title="Tam adresi kopyala"
+                title="Copy full address"
               >
-                Kopyala
+                Copy
               </button>
             </div>
           </div>
 
           {/* Ağ bilgisi */}
           <div className="bg-zemin-acik rounded-lg p-3 border border-sinir">
-            <p className="text-xs text-yazi-soluk mb-1">Ağ</p>
+            <p className="text-xs text-yazi-soluk mb-1">Network</p>
             <p className="text-sm text-yazi-birincil capitalize">{ag}</p>
           </div>
 
           {/* Arka uç imzalama açıklaması */}
           <div className="bg-ikincil/5 border border-ikincil/20 rounded-lg p-3">
-            <p className="text-xs text-ikincil font-medium mb-1">Arka Uç İmzalama</p>
+            <p className="text-xs text-ikincil font-medium mb-1">Backend Signing</p>
             <p className="text-xs text-yazi-ikincil leading-relaxed">
-              Freelancer imzası sunucu tarafında eklenir.
-              Özel anahtar hiçbir zaman tarayıcıya gönderilmez.
+              Freelancer signature is added server-side.
+              The private key is never sent to the browser.
             </p>
           </div>
         </div>

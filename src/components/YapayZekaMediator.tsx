@@ -28,10 +28,10 @@ function TranskriptMesaj({ kayit }: { kayit: MuzakereKaydi }) {
               solMu ? 'text-vurgu-acik' : 'text-ikincil-acik'
             }`}
           >
-            {kayit.taraf === 'MUSTERI' ? 'Müşteri' : 'Freelancer'}
+            {kayit.taraf === 'MUSTERI' ? 'Client' : 'Freelancer'}
           </span>
           <span className="text-xs text-yazi-soluk">
-            {new Date(kayit.zaman).toLocaleTimeString('tr-TR', {
+            {new Date(kayit.zaman).toLocaleTimeString('en-US', {
               hour: '2-digit',
               minute: '2-digit',
             })}
@@ -62,7 +62,7 @@ function SartSatiri({
         <span className="text-sm text-yazi-birincil text-right">{deger}</span>
       ) : (
         <span className="text-xs text-uyari italic">
-          {eksik ? 'Belirtilmedi' : '—'}
+          {eksik ? 'Not specified' : '—'}
         </span>
       )}
     </div>
@@ -120,7 +120,7 @@ export function YapayZekaMediator() {
 
     try {
       const transkriptler = muzakereMesajlari.map(
-        (m) => `${m.taraf === 'MUSTERI' ? 'Müşteri' : 'Freelancer'}: ${m.metin}`
+        (m) => `${m.taraf === 'MUSTERI' ? 'Client' : 'Freelancer'}: ${m.metin}`
       );
 
       const yanit = await fetch('/api/analyze', {
@@ -131,7 +131,7 @@ export function YapayZekaMediator() {
 
       if (!yanit.ok) {
         const hataVerisi = await yanit.json().catch(() => ({}));
-        throw new Error(hataVerisi.hata ?? 'Analiz başarısız');
+        throw new Error(hataVerisi.hata ?? 'Analysis failed');
       }
 
       const { sartlar }: { sartlar: SozlesmeSartlari } = await yanit.json();
@@ -142,12 +142,12 @@ export function YapayZekaMediator() {
         asamaGec('ONAY');
         bildirimEkle(
           'bilgi',
-          'Şartlar Çıkarıldı',
-          'AI Mediator sözleşme şartlarını belirledi. Lütfen onaylayın.'
+          'Terms Extracted',
+          'AI Mediator has determined contract terms. Please confirm.'
         );
       }
     } catch (hata) {
-      const hataMesaji = hata instanceof Error ? hata.message : 'Bilinmeyen hata';
+      const hataMesaji = hata instanceof Error ? hata.message : 'Unknown error';
       setHata(hataMesaji);
       console.error('[YapayZekaMediator] Analiz hatası:', hata);
     } finally {
@@ -177,7 +177,7 @@ export function YapayZekaMediator() {
           {analiz && (
             <span className="text-xs text-vurgu-acik flex items-center gap-1">
               <span className="w-3 h-3 border border-vurgu/30 border-t-vurgu rounded-full animate-spin" />
-              Analiz ediliyor...
+              Analyzing...
             </span>
           )}
           <button
@@ -185,7 +185,7 @@ export function YapayZekaMediator() {
             disabled={analiz || muzakereMesajlari.length === 0}
             className="text-xs px-2.5 py-1 rounded bg-vurgu/20 text-vurgu-acik hover:bg-vurgu/30 disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           >
-            Analiz Et
+            Analyze
           </button>
         </div>
       </div>
@@ -202,7 +202,7 @@ export function YapayZekaMediator() {
               <span className="text-xl">🎙️</span>
             </div>
             <p className="text-sm text-yazi-soluk text-center max-w-[200px]">
-              Müzakere başladığında ses transkriptleri burada görünecek
+              Voice transcripts will appear here when negotiation begins.
             </p>
           </div>
         ) : (
@@ -217,35 +217,35 @@ export function YapayZekaMediator() {
         <div className="border-t border-sinir p-4 animate-kayma">
           <div className="flex items-center justify-between mb-3">
             <h4 className="text-xs font-semibold text-yazi-ikincil uppercase tracking-wider">
-              Çıkarılan Sözleşme Şartları
+              Extracted Contract Terms
             </h4>
             <span className={`text-xs font-mono ${guvenRengi}`}>
-              Güven: %{Math.round((sozlesmeSartlari.guvenSeviyesi ?? 0) * 100)}
+              Confidence: {Math.round((sozlesmeSartlari.guvenSeviyesi ?? 0) * 100)}%
             </span>
           </div>
 
           <div className="bg-zemin-acik rounded-lg border border-sinir p-3">
             <SartSatiri
-              etiket="Tutar"
+              etiket="Amount"
               deger={sozlesmeSartlari.miktar !== null ? `${sozlesmeSartlari.miktar} SOL` : null}
               eksik
             />
             <SartSatiri
-              etiket="Son Tarih"
+              etiket="Deadline"
               deger={
                 sozlesmeSartlari.sonTarih
-                  ? new Date(sozlesmeSartlari.sonTarih).toLocaleDateString('tr-TR')
+                  ? new Date(sozlesmeSartlari.sonTarih).toLocaleDateString('en-US')
                   : null
               }
               eksik
             />
             <SartSatiri
-              etiket="Kapsam"
+              etiket="Scope"
               deger={sozlesmeSartlari.kapsam}
               eksik
             />
             <SartSatiri
-              etiket="Ödeme"
+              etiket="Payment"
               deger={sozlesmeSartlari.odemeKosullari}
             />
           </div>
@@ -253,7 +253,7 @@ export function YapayZekaMediator() {
           {/* Eksik bilgiler uyarısı */}
           {sozlesmeSartlari.eksikBilgiler.length > 0 && (
             <div className="mt-2 bg-uyari/10 border border-uyari/30 rounded-lg p-2">
-              <p className="text-xs text-uyari font-medium mb-1">Eksik Bilgiler:</p>
+              <p className="text-xs text-uyari font-medium mb-1">Missing Information:</p>
               <ul className="text-xs text-yazi-ikincil space-y-0.5">
                 {sozlesmeSartlari.eksikBilgiler.map((bilgi, i) => (
                   <li key={i}>• {bilgi}</li>

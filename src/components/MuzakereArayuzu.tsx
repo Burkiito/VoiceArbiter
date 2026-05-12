@@ -62,25 +62,25 @@ function HosgeldinizEkrani() {
         <span className="text-4xl">⚖️</span>
       </div>
       <h2 className="text-2xl font-bold text-yazi-birincil mb-2">
-        VoiceArbiter'a Hoşgeldiniz
+        Welcome to VoiceArbiter
       </h2>
       <p className="text-yazi-ikincil text-sm max-w-md leading-relaxed mb-6">
-        Sesli müzakere ile akıllı sözleşmeler oluşturun.
-        Yapay zeka arabulucusu şartları otomatik belirler,
-        Solana escrow sistemi güvenli ödeme sağlar.
+        Create smart contracts through voice negotiation.
+        The AI mediator automatically determines terms,
+        and the Solana escrow system ensures secure payment.
       </p>
       <div className="grid grid-cols-3 gap-4 text-center max-w-sm">
         <div className="bg-zemin-kart border border-sinir rounded-xl p-3">
           <p className="text-2xl mb-1">🎙️</p>
-          <p className="text-xs text-yazi-ikincil">Sesli Müzakere</p>
+          <p className="text-xs text-yazi-ikincil">Voice Negotiation</p>
         </div>
         <div className="bg-zemin-kart border border-sinir rounded-xl p-3">
           <p className="text-2xl mb-1">🤖</p>
-          <p className="text-xs text-yazi-ikincil">AI Arabulucu</p>
+          <p className="text-xs text-yazi-ikincil">AI Mediator</p>
         </div>
         <div className="bg-zemin-kart border border-sinir rounded-xl p-3">
           <p className="text-2xl mb-1">🔐</p>
-          <p className="text-xs text-yazi-ikincil">Escrow Güvencesi</p>
+          <p className="text-xs text-yazi-ikincil">Escrow Security</p>
         </div>
       </div>
     </div>
@@ -119,7 +119,7 @@ export function MuzakereArayuzu() {
               <h1 className="text-lg font-bold text-yazi-birincil leading-none">
                 VoiceArbiter
               </h1>
-              <p className="text-xs text-yazi-soluk">Sesli AI Tahkim Platformu</p>
+              <p className="text-xs text-yazi-soluk">AI Voice Negotiation Platform</p>
             </div>
           </div>
 
@@ -132,9 +132,9 @@ export function MuzakereArayuzu() {
               <button
                 onClick={sifirla}
                 className="text-xs text-yazi-soluk hover:text-hata transition-colors"
-                title="Oturumu sıfırla"
+                title="Reset session"
               >
-                Sıfırla
+                Reset
               </button>
             )}
           </div>
@@ -152,7 +152,7 @@ export function MuzakereArayuzu() {
             {connected && publicKey && (
               <GuvenRaporu
                 adres={publicKey.toBase58()}
-                baslik="Müşteri Güven Raporu"
+                baslik="Client Trust Report"
               />
             )}
           </div>
@@ -172,7 +172,7 @@ export function MuzakereArayuzu() {
             {aktifAsama === 'KAYIT' && (
               <div className="bg-zemin-kart border border-sinir rounded-xl p-6 text-center">
                 <p className="text-yazi-ikincil mb-4">
-                  Kimlikler doğrulandı. Müzakereye başlamaya hazır mısınız?
+                  Identities verified. Ready to start negotiation?
                 </p>
                 <button
                   onClick={() => {
@@ -181,7 +181,7 @@ export function MuzakereArayuzu() {
                   }}
                   className="py-3 px-8 rounded-lg bg-gradient-vurgu text-white font-semibold hover:opacity-90 transition-opacity shadow-vurgu"
                 >
-                  Müzakereyi Başlat
+                  Start Negotiation
                 </button>
               </div>
             )}
@@ -220,16 +220,16 @@ export function MuzakereArayuzu() {
                   <span className="text-3xl">✅</span>
                 </div>
                 <h3 className="text-xl font-bold text-basari mb-2">
-                  Sözleşme Başarıyla Tamamlandı!
+                  Contract Successfully Completed!
                 </h3>
                 <p className="text-yazi-ikincil text-sm">
-                  Escrow serbest bırakıldı ve ödeme gerçekleştirildi.
+                  Escrow released and payment processed.
                 </p>
                 <button
                   onClick={sifirla}
                   className="mt-6 py-2 px-6 rounded-lg border border-sinir-acik text-yazi-ikincil hover:border-vurgu hover:text-vurgu transition-colors text-sm"
                 >
-                  Yeni Sözleşme Başlat
+                  Start New Contract
                 </button>
               </div>
             )}
