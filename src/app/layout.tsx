@@ -3,7 +3,7 @@ import type React from 'react';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'VoiceArbiter — Sesli AI Tahkim Platformu',
+  title: 'VoiceArbiter — Voice AI Arbitration Platform',
   description:
     'İki taraf arasında sesli müzakere ile akıllı sözleşme oluşturun. ' +
     'Yapay zeka arabulucusu şartları otomatik belirler, Solana escrow sistemi güvenli ödeme sağlar.',
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'tr_TR',
-    title: 'VoiceArbiter — Sesli AI Tahkim Platformu',
+    title: 'VoiceArbiter — Voice AI Arbitration Platform',
     description:
       'Sesli müzakere ile akıllı sözleşmeler oluşturun. AI arabulucu + Solana escrow.',
     siteName: 'VoiceArbiter',

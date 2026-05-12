@@ -9,6 +9,7 @@
 
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
+import Image from 'next/image';
 import { muzakereDepoyuKullan } from '@/store/negotiation-store';
 import type { SozlesmeSartlari } from '@/store/negotiation-store';
 
@@ -66,14 +67,10 @@ function UstCubuk() {
       <div className="container mx-auto px-4 py-3 flex items-center justify-between">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-vurgu to-vurgu-acik flex items-center justify-center shadow-vurgu flex-shrink-0">
-            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3" />
-            </svg>
-          </div>
+          <Image src="/logo.jpg" alt="VoiceArbiter Logo" width={48} height={48} className="w-8 h-8 rounded-xl object-cover flex-shrink-0" />
           <div>
             <h1 className="text-base font-bold text-yazi-birincil leading-none">VoiceArbiter</h1>
-            <p className="text-xs text-yazi-soluk">Sesli AI Tahkim Platformu</p>
+            <p className="text-xs text-yazi-soluk">Voice AI Arbitration Platform</p>
           </div>
         </div>
 
