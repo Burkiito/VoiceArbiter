@@ -129,6 +129,7 @@ export function GuvenRaporu({ adres, baslik = 'Güven Raporu' }: GuvenRaporuProp
     setYukleniyor(true);
     await new Promise((r) => setTimeout(r, 800));
     setRapor({
+      adres,
       toplamPuan: 85,
       hesaplanmaZamani: new Date().toISOString(),
       yas: { kategoriAdi: 'Cüzdan Yaşı', puan: 24, maksimumPuan: 30, aciklama: '120 günlük cüzdan' },
