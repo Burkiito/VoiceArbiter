@@ -13,9 +13,28 @@
 [![Groq](https://img.shields.io/badge/Groq-F55036?style=for-the-badge&logo=groq&logoColor=white)](https://groq.com/)
 [![ElevenLabs](https://img.shields.io/badge/ElevenLabs-000000?style=for-the-badge&logo=elevenlabs&logoColor=white)](https://elevenlabs.io/)
 
+### 🌐 [**▶️ TRY THE LIVE DEMO**](https://voice-arbiter-j68y.vercel.app/) 🌐
+
+📖 [English](#-english-version) • 🇹🇷 [Türkçe](#-türkçe-versiyon)
+
 ---
 
 </div>
+
+# 🇬🇧 English Version
+
+## 🎬 Live Demo
+
+> **🚀 Experience VoiceArbiter live:** [**voice-arbiter-j68y.vercel.app**](https://voice-arbiter-j68y.vercel.app/)
+>
+> **Try it in 3 steps:**
+> 1. 👻 Make sure you have the [Phantom Wallet](https://phantom.app/) browser extension installed and switched to **Solana Devnet**.
+> 2. 💧 Get free test SOL from a [Devnet Faucet](https://faucet.solana.com/).
+> 3. 🔗 Open the [demo link](https://voice-arbiter-j68y.vercel.app/), connect your wallet, and start negotiating in your native language!
+>
+> 💡 *Tip: For the best demo experience, allow microphone access and try negotiating in two different languages (e.g., Turkish ↔ English) to see the real-time AI translation in action.*
+
+---
 
 ## 🌍 The Problem
 
@@ -198,5 +217,215 @@ This project is licensed under the **MIT License** — see the [LICENSE](LICENSE
 ### Built with ❤️, ☕, and a lot of `console.log()` during a sleepless hackathon weekend.
 
 **If VoiceArbiter helped you, drop a ⭐ on the repo!**
+
+</div>
+
+---
+---
+
+<div align="center">
+
+# 🇹🇷 Türkçe Versiyon
+
+### *Konuş. Anlaş. Öde. — Hangi Dilde Olursa Olsun, Zincir Üzerinde.*
+
+**Müzakere terimlerini otomatik olarak çıkaran ve güvensiz Solana escrow sözleşmelerini yürüten gerçek zamanlı, AI destekli çok dilli sesli müzakere platformu.**
+
+</div>
+
+## 🎬 Canlı Demo
+
+> **🚀 VoiceArbiter'ı canlı deneyimleyin:** [**voice-arbiter-j68y.vercel.app**](https://voice-arbiter-j68y.vercel.app/)
+>
+> **3 adımda deneyin:**
+> 1. 👻 [Phantom Wallet](https://phantom.app/) tarayıcı eklentisinin kurulu olduğundan ve **Solana Devnet**'e geçtiğinizden emin olun.
+> 2. 💧 [Devnet Faucet](https://faucet.solana.com/) üzerinden ücretsiz test SOL alın.
+> 3. 🔗 [Demo linkini](https://voice-arbiter-j68y.vercel.app/) açın, cüzdanınızı bağlayın ve kendi ana dilinizde müzakereye başlayın!
+>
+> 💡 *İpucu: En iyi demo deneyimi için mikrofon erişimine izin verin ve gerçek zamanlı AI çevirisini görmek için iki farklı dilde (örn. Türkçe ↔ İngilizce) müzakere etmeyi deneyin.*
+
+---
+
+## 🌍 Problem
+
+> Global freelance ve dijital ticaret patlama yaşıyor — ancak iki sürtünme noktası sınır ötesi anlaşmaları hâlâ sekteye uğratıyor:
+>
+> 1. **🗣️ Dil Bariyerleri** — Müzakerelerdeki yanlış anlaşılmalar güvene, zamana ve paraya mal oluyor.
+> 2. **🤝 Ödeme Garantisinin Olmaması** — Freelancer'lar ödememe korkusu yaşıyor; müşteriler teslim edilmeme korkusu yaşıyor.
+>
+> Mevcut escrow platformları yavaş, pahalı, merkezi ve sıkıcı manuel form doldurma gerektiriyor. **VoiceArbiter** tüm bunları ortadan kaldırıyor.
+
+---
+
+## 💡 Çözüm
+
+VoiceArbiter, iki tarafın **kendi dillerinde doğal bir şekilde konuşmasına** olanak tanır, bu sırada AI dinler, çevirir ve — her iki taraf sözlü olarak anlaştığında — **fonları saniyeler içinde Solana üzerinde kilitler**. Form yok. Aracı yok. Dil bariyeri yok.
+
+```
+🎤 Konuş  →  🧠 AI Çevirir  →  📝 LLM Şartları Çıkarır  →  ⛓️ Solana Fonları Kilitler
+```
+
+---
+
+## 🚀 Özellikler
+
+| Özellik | Açıklama |
+| :--- | :--- |
+| 🌐 **Gerçek Zamanlı Çok Dilli Ses** | Taraflar ana dillerinde konuşur. Groq'un **Whisper** modeli transkripsiyon yapar, **Llama 3** çevirir ve **ElevenLabs** dinleyicinin dilinde doğal konuşma sentezler — hepsi gerçek zamanlı. |
+| 🤖 **AI Destekli Şart Çıkarma** | Form yok. **Llama 3** konuşmayı sürekli analiz eder ve nihai anlaşma şartlarını — `Tutar (SOL)`, `Son Tarih` ve `İş Kapsamı` — otomatik olarak çıkarır. |
+| ⛓️ **Güvensiz Solana Escrow** | Her iki taraf sözlü olarak onayladığında, şartlar bir Solana işlemine bağlanır. Fonlar `@solana/web3.js` aracılığıyla anında kilitlenir ve **Phantom Wallet** ile imzalanır. |
+| 👻 **Phantom Wallet Entegrasyonu** | Sorunsuz tek tıkla cüzdan bağlantısı. Kullanıcılar müzakereden ayrılmadan zincir üstü işlemi imzalar ve onaylar. |
+| ⚡ **Düşük Gecikme Tasarımı** | Groq'un LPU inference altyapısıyla — sesten-sese çeviri anlık hissedilir, müzakerenin doğal akışını korur. |
+| 🧠 **Bağlamsal Hafıza** | LLM tüm konuşmayı takip eder, böylece şartlar gerçek bir insan müzakeresi gibi organik olarak revize edilip, rafine edilip, sonuçlandırılabilir. |
+
+---
+
+## 🛠 Teknoloji Yığını
+
+### 🎨 Frontend
+| Teknoloji | Rolü |
+| :--- | :--- |
+| **Next.js 14** | App Router, Server Actions, API route'ları |
+| **React 18** | Bileşen mimarisi |
+| **Tailwind CSS** | Utility-first stillendirme |
+| **Zustand** | Konuşma ve cüzdan için hafif global state yönetimi |
+
+### ⛓️ Web3
+| Teknoloji | Rolü |
+| :--- | :--- |
+| **@solana/web3.js** | Solana işlemlerini oluşturma ve gönderme |
+| **Phantom Wallet Adapter** | Cüzdan bağlantısı ve işlem imzalama |
+| **Solana Devnet/Mainnet** | Ödeme katmanı |
+
+### 🧠 AI Katmanı
+| Teknoloji | Rolü |
+| :--- | :--- |
+| **Groq — Whisper API** | Ultra hızlı konuşmadan-metne dönüştürme |
+| **Groq — Llama 3** | Çeviri + yapısal şart çıkarma |
+| **ElevenLabs API** | Doğal çok dilli metinden-konuşmaya sentezleme |
+
+---
+
+## ⚙️ Nasıl Çalışır?
+
+Tam bir VoiceArbiter müzakeresi **6 adımda**:
+
+```mermaid
+flowchart LR
+    A[🎤 Taraf A ana<br/>dilinde konuşur] --> B[Groq Whisper<br/>Transkripsiyon]
+    B --> C[Llama 3<br/>Çeviri]
+    C --> D[ElevenLabs<br/>Ses sentezi]
+    D --> E[🔊 Taraf B kendi<br/>dilinde duyar]
+    E --> F[Llama 3 şartları çıkarır<br/>Tutar / Tarih / Kapsam]
+    F --> G[👻 Phantom imzalar]
+    G --> H[⛓️ Solana SOL kilitler]
+```
+
+### Adım Adım Kullanıcı Akışı
+
+1. **🔗 Cüzdan Bağlayın** — Müşteri Phantom cüzdanını bağlar. Freelancer'ın public key'i önceden tanımlıdır.
+2. **🎙️ Sesli Oturum Başlatın** — Her iki taraf da bir oturuma katılır ve tercih ettiği dili seçer.
+3. **🗣️ Doğal Konuşun** — Her taraf kendi dilinde konuşur. Yaklaşık 1 saniye içinde, diğer taraf bunu *kendi* dilinde ElevenLabs sesinden duyar.
+4. **📝 Canlı Şart Çıkarımı** — Konuşma ilerledikçe, Llama 3 anlaşmanın yapısal JSON halini günceller: `{ amountSOL, deadline, scope }`. Arayüz bunu canlı gösterir.
+5. **✅ Sözlü Onay** — Her iki taraf da "kabul ediyorum" dediğinde (hangi dilde olursa olsun), LLM karşılıklı rızayı algılar ve **Onayla ve Fonları Kilitle** butonunu çıkarır.
+6. **⛓️ Zincir Üstü Anlaşma** — Müşteri Phantom üzerinden imzalar. `@solana/web3.js` işlemi oluşturup gönderir, SOL son tarih veya teslimat koşuluna kadar kilitlenir.
+
+---
+
+## 💻 Kurulum & Çalıştırma
+
+### 📋 Gereksinimler
+- Node.js **≥ 18.x**
+- npm / yarn / pnpm
+- [Phantom Wallet](https://phantom.app/) tarayıcı eklentisi
+- [Groq](https://console.groq.com/) ve [ElevenLabs](https://elevenlabs.io/) API anahtarları
+
+### 1️⃣ Depoyu Klonlayın
+```bash
+git clone https://github.com/your-username/voice-arbiter.git
+cd voice-arbiter
+```
+
+### 2️⃣ Bağımlılıkları Yükleyin
+```bash
+npm install
+```
+
+### 3️⃣ Ortam Değişkenlerini Yapılandırın
+
+Proje kök dizininde bir `.env.local` dosyası oluşturun:
+
+```bash
+touch .env.local
+```
+
+Aşağıdaki değişkenleri ekleyin:
+
+```env
+# 🌐 Solana RPC endpoint (Test için Devnet önerilir)
+NEXT_PUBLIC_SOLANA_RPC=https://api.devnet.solana.com
+
+# 👤 Freelancer'ın public key'i (escrow alıcısı)
+NEXT_PUBLIC_FREELANCER_PUBKEY=BurayaFreelancerSolanaPublicKey
+
+# 🧠 Groq API anahtarı (Whisper + Llama 3 için)
+GROQ_API_KEY=buraya_groq_api_anahtariniz
+
+# 🔊 ElevenLabs API anahtarı (çok dilli TTS için)
+ELEVENLABS_API_KEY=buraya_elevenlabs_api_anahtariniz
+```
+
+> ⚠️ **`.env.local` dosyasını asla commit etmeyin.** `.gitignore` dosyanızda listelendiğinden emin olun.
+
+### 4️⃣ Geliştirme Sunucusunu Çalıştırın
+```bash
+npm run dev
+```
+
+Tarayıcınızda [http://localhost:3000](http://localhost:3000) adresini açın. 🎉
+
+### 5️⃣ Production Build
+```bash
+npm run build
+npm start
+```
+
+---
+
+## 🗺️ Yol Haritası
+
+- [ ] DAO tahkimi ile zincir üstü uyuşmazlık çözümü
+- [ ] SOL'a ek olarak SPL token desteği (USDC, USDT)
+- [ ] Native mikrofon entegrasyonlu mobile-first PWA
+- [ ] Ek kimlik doğrulama için ses biyometrisi
+- [ ] Çok taraflı (3+) müzakere odaları
+
+---
+
+## 🤝 Katkıda Bulunma
+
+Katkılar, sorunlar ve özellik istekleri memnuniyetle karşılanır! [Issues sayfasını](#) kontrol etmekten çekinmeyin.
+
+1. Projeyi fork'layın
+2. Feature branch'inizi oluşturun (`git checkout -b feature/HarikaOzellik`)
+3. Değişikliklerinizi commit'leyin (`git commit -m 'Harika bir özellik eklendi'`)
+4. Branch'inizi push'layın (`git push origin feature/HarikaOzellik`)
+5. Bir Pull Request açın
+
+---
+
+## 📜 Lisans & Hackathon Sorumluluk Reddi
+
+Bu proje **MIT Lisansı** altında lisanslanmıştır — detaylar için [LICENSE](LICENSE) dosyasına bakın.
+
+> ⚠️ **Hackathon Sorumluluk Reddi:** VoiceArbiter, gerçek zamanlı AI ile Solana akıllı sözleşmelerinin birleşimini göstermek için bir hackathon prototipi olarak geliştirilmiştir. **Denetlenmemiştir**, **production-ready değildir** ve kapsamlı bir güvenlik incelemesi yapılmadan **gerçek fonları yönetmek için kullanılmamalıdır**. Tüm testler için Devnet kullanın. Yazarlar herhangi bir fon kaybından sorumlu değildir.
+
+---
+
+<div align="center">
+
+### Uykusuz bir hackathon haftasonunda ❤️, ☕ ve bolca `console.log()` ile geliştirildi.
+
+**VoiceArbiter işinize yaradıysa, repo'ya bir ⭐ bırakın!**
 
 </div>
